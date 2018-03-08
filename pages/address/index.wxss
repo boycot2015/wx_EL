@@ -1,0 +1,21 @@
+/* pages/address/index.wxss */
+.container .bottom{
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ccc;
+  width: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+.container .bottom image.add{
+  width: 40rpx;
+  height: 40rpx;
+}
+.container .bottom image.more{
+  width: 14rpx;
+  height: 16rpx;
+}

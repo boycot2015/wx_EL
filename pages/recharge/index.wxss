@@ -1,0 +1,12 @@
+/* pages/recharge/index.wxss */
+.container input{
+  width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 10rpx;
+  padding: 10rpx 5%;
+  font-size: 14px;
+}
+.container button{
+  margin: 20rpx 0;
+  width: 100%;
+}

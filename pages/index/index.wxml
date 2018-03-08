@@ -1,0 +1,51 @@
+<!--index.wxml-->
+ <view class="container">
+  <view class="serarch-content">
+      <image src="/images/search-pic.png" class="search-icon" />
+      <input placeholder="请输入搜索内容" class="search-input" maxlength="30" confirm-type="搜索" bindinput='listenerSearchInput' bindconfirm='toSearch'>
+      </input>
+      <button class='search-btn' bindtap="toSearch">搜索
+      </button>
+  </view>
+  <view class="swiper-container">
+        <swiper class="swiper_box" 
+                    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
+            <block wx:for="{{banners}}" wx:key="id">
+                <swiper-item>
+                    <image bindtap="tapBanner" data-id="{{item.businessId}}" src="{{item.picUrl}}_m" class="slide-image" width="750rpx" height="562.5rpx"/>
+                </swiper-item>
+            </block>
+        </swiper>
+        <view class="dots">  
+            <block wx:for="{{banners}}" wx:key="unique">  
+                <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>  
+            </block>  
+        </view>  
+  </view>
+  <view class="type-container">
+      <scroll-view class="type-navbar" scroll-x="true">
+          <view class="type-box" wx:for-items="{{categories}}" wx:key="id">
+              <view id="{{item.id}}" class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}" bindtap="tabClick">
+                  {{item.name}}
+              </view>
+          </view>
+      </scroll-view>
+  </view>
+  <view class='goods-list'>
+    <block wx:if="{{goods.length>0}}">
+    <view bindtap='toGoodsDetail' data-id='{{item.id}}' class='list-item'wx:for-items="{{goods}}" wx:key="id">
+        <image  src="{{item.pic}}"></image>
+        <view class='bottom'>
+          <view class='left'>
+            <view class='item'>{{item.name}}</view>
+            <view class='price'>{{item.minPrice}}元</view>
+          </view>
+          <view class='state'>{{item.statusStr}}</view>
+        </view>
+    </view>    
+    </block>
+    <block wx:else >
+      <view  class='more'>更多产品，敬请期待~</view> 
+    </block>
+  </view> 
+</view> 

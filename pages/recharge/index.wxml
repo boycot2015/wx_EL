@@ -1,0 +1,7 @@
+<!--pages/recharge/index.wxml-->
+<!-- <text>pages/recharge/index.wxml</text> -->
+<view class='container'>
+  <input placeholder='充值金额需大于等于1元'></input>
+  <button type='warn'>立即充值</button>
+  <button bindtap='goBack'>取消</button>
+</view>

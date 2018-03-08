@@ -1,0 +1,94 @@
+<!--pages/goodsdetail/index.wxml-->
+<!-- <text>pages/goodsdetail/index.wxml</text> -->
+<import src="../../wxParse/wxParse.wxml" />
+<view class='container'>
+  <view class='swiper-box' wx:if="{{!detailData.basicInfo.videoId}}">
+    <swiper indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{detailData.pics}}" wx:key="{{index}}">
+        <swiper-item>
+          <image src="{{item.pic}}" class="slide-image" width="355" height="150"/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class='video-box' wx:if="{{videoSrc}}">
+    <video src='{{videoSrc}}'></video>
+  </view>
+  <view class='desc'>
+    <view class='top'>
+      <view class='left'>
+        <view class='title'>{{detailData.basicInfo.name}}</view>
+        <view class='characteristic'>{{detailData.basicInfo.characteristic}}</view>
+      </view>
+      <view class='right'>
+        <image class='share-icon' src='/images/qd.png'></image>
+        <view>分享有礼</view>
+      </view>
+    </view>
+    <view class='bottom'>
+      <view class='minPrice'>￥{{detailData.basicInfo.minPrice}}</view>
+      <view class='buynum'>购买{{detailData.basicInfo.numberOrders}}次</view>
+      <view class='provnum'>共收到{{detailData.basicInfo.numberFav}}次好评</view>
+    </view>
+  </view>
+  <view class='detail-content'>
+    <view class='title'>商品介绍</view>
+    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+  </view>
+  <view class='commit' wx:if="{{commitData}}">
+    <view class='title'>商品评价 <text>({{commitData.length}})</text> </view>
+    <view class='commit-list' wx:for="{{commitData}}" wx:key="{{index}}">
+        <view class='left'>
+          <image src='{{item.user.avatarUrl}}'></image>
+          <view class='username'>{{item.user.nick}}</view>
+        </view>
+        <view class='right'>
+          <view class='goodReputationRemark'>{{item.goods.goodReputationRemark}}</view>
+          <view class='right-bottom'>
+            <view class='goodsname'>{{item.goods.goodsName}}</view>
+            <view class='goodReputationStr'>{{item.goods.goodReputationStr}}</view>
+          </view>
+        </view>
+    </view>
+  </view>
+  <view class='tabbar'>
+    <view class='serve'>
+      <image src='/images/kefu.png'></image>
+      <view class='text'>客服</view>
+    </view>
+    <view class='shopcart'>
+      <image src='/images/cart.png'></image>
+      <view class='text'>购物车</view>
+    </view>
+    <view  class='buy-btn'>立即购买</view>
+    <view  class='cart-btn' bindtap='popUp'>加入购物车</view>
+  </view>
+  <view class="pop-mask {{isShow?'active':''}}" >
+    <view class='pop-content'>
+      <view class='shop'>
+        <image src='{{detailData.basicInfo.pic}}'></image>
+        <view class='text'>
+          <view class='title'>{{detailData.basicInfo.name}}</view>
+          <view class='price'>￥{{detailData.basicInfo.minPrice}}</view>
+        </view>
+      </view>
+      <view class='color' wx:if="{{detailData.properties}}">
+        <view class='title'>{{detailData.properties[0].name}}</view>
+        <view class='color-list' >
+          <view wx:for="{{detailData.properties[0].childsCurGoods}}" wx:key="{{index}}" class='color-btn'>{{item.name}}</view>
+        </view>
+      </view>
+      <view class='count'>
+        <view class='left'>商品数量</view>
+        <view class='right'>
+          <view class='count-plus'>-</view>
+          <view class='count-num'>1</view>
+          <view class='count-reduce'>+</view>
+        </view>
+      </view>
+      <view class='add-btn' >加入购物车</view>
+      <image class='close' bindtap='closePop' src='/images/popup-close.png'></image>
+    </view>
+  </view>
+</view>

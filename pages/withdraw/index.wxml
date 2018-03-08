@@ -1,0 +1,6 @@
+<!--pages/withdraw/index.wxml-->
+<view class='container'>
+  <input placeholder='提现金额需大于等于100元'></input>
+  <button type='warn'>立即提现</button>
+  <button bindtap='goBack'>取消</button>
+</view>

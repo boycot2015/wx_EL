@@ -1,0 +1,47 @@
+<!--pages/addaddr/index.wxml-->
+<!-- <text>pages/addaddr/index.wxml</text> -->
+<view class='container'>
+<form>
+  <view class='text-area'>
+    <view class='item name'>
+      <text>联系人</text>
+      <input placeholder='姓名'></input>
+    </view>
+    <view class= 'item phone'>
+      <text> 手机号码</text>
+      <input placeholder='请输入11位手机号码'></input>
+    </view>
+    <view class='item erea'>
+      <text>选择地区</text>
+      <picker  bindchange="bindPickerProvinceChange" range="{{provinces}}">
+        <view class="picker {{selProvince=='请选择'?'hui':''}}">
+          {{selProvince}}
+        </view>
+      </picker>
+      <picker disabled="{{selProvince=='请选择'?true:false}}" bindchange="bindPickerCityChange" range="{{citys}}">
+        <view class="picker {{selCity=='请选择'?'hui':''}}">
+          {{selCity}}
+        </view>
+      </picker>
+      <picker disabled="{{selCity=='请选择'?true:false}}"  bindchange="bindPickerDistrictChange" range="{{districts}}">
+        <view class="picker {{selDistrict=='请选择'?'hui':''}}">
+          {{selDistrict}}
+        </view>
+      </picker>
+    </view>
+    <view class='item details'>
+      <text>详细地址</text>
+      <input placeholder='详细地址'></input>
+    </view>
+    <view class='item code'>
+      <text>邮政编码</text>
+      <input placeholder='邮政编号'></input>
+    </view>
+  </view>
+  <view class="btn-area">
+    <button type='warn' formType="submit">保存</button>
+    <button type='primary' formType="reset">从微信读取</button>
+    <button  formType="cancel" bindtap='goBack'>取消</button>
+  </view>
+</form>
+</view>

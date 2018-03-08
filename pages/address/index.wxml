@@ -1,0 +1,10 @@
+<!--pages/address/index.wxml-->
+<!-- <text>pages/address/index.wxml</text> -->
+<view class='container'>
+  <view class='bottom' bindtap='addAddr'>
+    <image class='add' src='/images/add-addr.png'></image>
+    <view>新增收货地址</view>
+    <image class='more' src='/images/arrow-right.png'></image>
+  </view>  
+</view>
+

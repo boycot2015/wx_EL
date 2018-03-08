@@ -1,0 +1,150 @@
+/**index.wxss**/
+.serarch-content{
+  position: absolute;
+  z-index: 99;
+  top: 10px;
+  border-radius: 5px;  
+  overflow: hidden;
+  width: 90%;
+}
+.serarch-content image{
+  position: absolute;
+  top: 50%;
+  margin-top: -12px;
+  margin-left: 12px;
+  width: 24px;
+  height: 24px;
+  z-index: 99;
+}
+.serarch-content input{
+  height: 40px;
+  background-color: #fff;
+  color: #333;
+  padding-left: 40px;
+  width: 70%;
+  float: left;
+  box-sizing: border-box;
+}
+.serarch-content .search-btn{
+  width: 30%;
+  height: 40px;
+  float: left;
+  line-height: 40px;
+  border: 0;
+  outline: none;
+  background-color: skyblue;
+  border-radius: 0%;
+}
+
+
+.swiper-container{
+  width: 750rpx;
+  height:562.5rpx;
+  position: relative;  
+}
+.swiper_box {
+  width: 100%;
+  height:562.5rpx;
+}
+
+swiper-item image {
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+  height:562.5rpx;
+}
+.swiper-container .dots{  
+  position: absolute;  
+  left: 0;  
+  right: 0;  
+  bottom: 20rpx;  
+  display: flex;  
+  justify-content: center;  
+}  
+.swiper-container .dots .dot{  
+  margin: 0 8rpx;  
+  width: 14rpx;  
+  height: 14rpx;  
+  background: #fff;  
+  border-radius: 50%;  
+  transition: all .6s;  
+  opacity: .5;
+}  
+.swiper-container .dots .dot.active{  
+  width: 14rpx;  
+  opacity: 1;
+}
+
+
+
+
+.type-container{
+  width: 100%;
+  height: 88rpx;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.type-navbar{
+  white-space: nowrap;
+  height: 88rpx;
+  width: 100%;
+  background-color: #fff;
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.type-box{
+  width:160rpx;
+  box-sizing: content-box;
+  font-size: 24rpx;
+  line-height: 84rpx;
+  text-align: center;
+  display: inline-block;
+  overflow: hidden;
+}
+.type-navbar-item{
+  border-bottom: 4rpx solid #fff;
+  font-size: 16px;
+}
+.type-item-on{
+  border-bottom: 4rpx solid #e64340;
+  color: #e64340;
+}
+
+
+.goods-list{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: #f5f5f5;
+  width: 100%;
+}
+.goods-list .list-item{
+  width: 48%;
+  margin: 2% 1%;
+  padding-bottom: 2%;
+  background-color: #fff;
+}
+.goods-list .list-item .item{
+  font-size: 18px;
+}
+.goods-list .list-item image{
+   width: 100%; 
+}
+.goods-list .list-item .bottom{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.goods-list .list-item .bottom .price{
+  color: red;
+}
+.more{
+  width: 100%;
+  padding: 30px 0;
+  text-align: center;
+  background-color: #fff;
+}

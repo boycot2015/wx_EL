@@ -1,0 +1,16 @@
+/* pages/shop-cart/index.wxss */
+page,.container{
+  height: 100%;
+  background-color: #f5f5f5;
+}
+.container .nogoods{
+  padding-top: 300rpx;
+  text-align: center;
+}
+.container .nogoods image{
+  width: 54px;
+  height: 54px;
+}
+.container .nogoods .cartinfo{
+  line-height: 50px;
+}

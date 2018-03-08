@@ -1,0 +1,242 @@
+/* pages/goodsdetail/index.wxss */
+page{
+  background-color: #f5f5f5;
+}
+page .container{
+  height: 100%;
+  margin-bottom: 120rpx;
+}
+swiper{
+  height: 300px;
+}
+swiper-item image {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  overflow: hidden;
+}
+.swiper-box{
+  height: 100%;
+  width: 100%;
+}
+.video-box,.video-box video{
+  width: 100%;
+  vertical-align: middle;
+}
+.desc{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 90%;
+  margin-bottom: 10px;
+  padding: 5%;
+  background-color: #fff;
+}
+.desc .top,.desc .bottom{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+.desc .top .characteristic{
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.desc .bottom{
+  margin-top: 20rpx;
+}
+.desc .top .left{
+  font-size: 16px;
+}
+.desc .right{
+  text-align: center;
+  flex-basis: 35%;
+  font-size: 12px;
+}
+.desc image{
+  width: 54rpx;  
+  height: 56rpx;
+}
+.desc .bottom .minPrice{
+  color: red;
+}
+.detail-content  {
+  padding-left: 12rpx;
+  background-color: #fff;
+  padding: 20rpx 0;
+}
+.container .commit,.detail-content .title{
+  padding: 10rpx 0;
+}
+.container .commit{
+  width: 100%;
+  margin: 20rpx 0;
+  background-color: #fff;
+}
+.container .title{
+  padding: 10rpx 20rpx;
+}
+.container .commit text{
+  color: red;
+}
+.container .commit image{
+  width: 100rpx;
+  height: 100rpx;
+}
+.container .commit .commit-list{
+  display: flex;
+  justify-content: flex-start;
+  border-top: 1px solid #ccc;
+  padding: 10rpx 0;
+  width: 100%;
+}
+.container .commit .commit-list .left{
+  text-align: center;
+  flex-basis: 30%;
+}
+.container .commit .commit-list .right{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20rpx;
+  justify-content: space-around;
+}
+.container .commit .commit-list .right-bottom{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.container .tabbar{
+  background-color: #fff;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+.container .tabbar image{
+  width: 54rpx;
+  height: 54rpx;
+}
+
+.container .tabbar .serve,.container .tabbar .shopcart{
+  font-size: 14px;
+  float: left;  
+  margin: 5rpx 40rpx;
+  color: #ccc;
+}
+.container .tabbar .serve {
+  color: #008000;
+}
+.container .tabbar .cart-btn,.container .tabbar .buy-btn{
+  color: #fff;
+}
+.container .tabbar .cart-btn {
+  float: right;
+  background-color: orange;
+  line-height: 120rpx;  
+  padding: 0 20rpx;
+}
+.container .tabbar .buy-btn{
+  float: right;
+  background-color: orangered;
+  line-height: 120rpx;
+  padding: 0 20rpx;
+  
+}
+.container .pop-mask{
+    width: 100%; 
+    height: 100%; 
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .5);
+    transform: translateY(100%);
+    transition: all .5s;
+}
+.container .pop-mask.active{
+  transform: translateY(0);
+}
+.container .pop-mask .pop-content{
+    /* height: 200rpx; */
+    background-color: #fff;
+    padding: 10rpx 0;
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    width: 100%;     
+    left: 0;
+}
+.container .pop-mask .pop-content image{
+  width: 120rpx;
+  height: 120rpx;
+}
+.container .pop-mask .pop-content .shop{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10rpx;
+  border-bottom: 1px solid #ccc;
+}
+.container .pop-mask .pop-content .shop .text{
+  margin-left: 40rpx;
+}
+.container .pop-mask .pop-content .shop .text .price{
+  color: red;
+}
+.container .pop-mask .pop-content .color .title{
+  padding: 10rpx 0;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+.container .pop-mask .pop-content .color .color-list{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 60rpx 0;  
+  width: 100%;
+}
+.container .pop-mask .pop-content .color .color-btn{
+  background-color: #fff;
+  padding: 5rpx 10rpx;
+  margin: 10rpx 0;
+  border: 1px solid #ccc;
+  border-radius: 10rpx;
+}
+.container .pop-mask .pop-content  .count{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-top: 1px solid #ccc;
+}
+.container .pop-mask .pop-content  .count .right{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pop-content  .count .right .count-plus,
+.pop-content  .count .right .count-num,
+.pop-content  .count .right .count-reduce{
+  border: 1px solid #ccc;
+  padding: 5rpx 20rpx;
+}
+.pop-content  .count .right .count-num {
+  background-color: #f5f5f5;
+  padding: 5rpx 25rpx;
+}
+.pop-content .add-btn{
+  text-align: center;
+  background-color: deeppink;
+  padding: 20rpx 0;
+}
+.pop-content .close{
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+  width: 9rpx;
+  height: 9rpx;
+}
