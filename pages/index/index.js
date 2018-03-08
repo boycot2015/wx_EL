@@ -19,6 +19,11 @@ Page({
       url: '/pages/goodsdetail/index?id='+e.currentTarget.dataset.id,
     })
   },
+  onHide(){
+    this.setData({
+      autoplay:false
+    })
+  },
   onShareAppMessage: function (res) {
     wx.showShareMenu({
       withShareTicket: true
@@ -59,10 +64,16 @@ Page({
     //   searchInput:e.
     // })
   },
+  onShow(){
+    this.setData({
+      autoplay: true
+    })
+  },
   onLoad: function () {
-    var that = this
+    var that = this;
+    
     wx.setNavigationBarTitle({
-      title: wx.getStorageSync('mallName')
+      title: wx.getStorageSync('mallName') 
     })
     wx.getSetting({
       success(res) {

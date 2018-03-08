@@ -14,16 +14,46 @@ Page({
     autoplay: true,
     interval: 4000,
     duration: 1000,
-    isShow:false
+    isShowCart: false,
+    isShowBuy:false,
+    selNum:1
   },
   closePop(){
     this.setData({
-      isShow: false
+      isShowCart: false,
+      isShowBuy: false,
     })
   },
-  popUp(){
+  popUpCart(){
     this.setData({
-      isShow:true
+      isShowCart:true
+    })
+  },
+  popUpBuy() {
+    this.setData({
+      isShowBuy: true
+    })
+  },
+  selColor(e){
+    this.setData({
+      selColor: e.currentTarget.dataset.color
+    })
+    console.log(e.currentTarget.dataset.color);
+  },
+  addCount(e){
+    this.setData({
+      selNum: ++this.data.selNum
+    })
+  },
+  reduceCount() {
+    if (this.data.selNum<=1){
+      this.setData({
+        selNum: 1
+      })
+      return
+    }
+    this.setData({
+      selNum: --this.data.selNum
     })
   },
   getData(e){

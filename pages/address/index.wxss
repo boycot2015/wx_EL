@@ -7,7 +7,7 @@
   align-items: center;
   border-top: 1px solid #ccc;
   width: 100%;
-  padding: 20rpx;
+  padding: 40rpx 20rpx;
   box-sizing: border-box;
   font-size: 16px;
 }

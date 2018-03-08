@@ -27,7 +27,7 @@
   width: 90%;  
   display: flex;
   flex-direction: row;
-  padding: 20rpx 5%;
+  padding: 40rpx 5%;
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid #ccc;
@@ -46,8 +46,9 @@
   justify-content: space-around;
 }
 .container .item button{
-    width: 48%;
-    margin: 20rpx 1%;
+    width: 60%;
+    padding: 10rpx 40rpx;
+    margin: 10rpx 1%;
 }
 .container .item image{
   width: 14rpx;

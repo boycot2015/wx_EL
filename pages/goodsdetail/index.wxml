@@ -61,10 +61,37 @@
       <image src='/images/cart.png'></image>
       <view class='text'>购物车</view>
     </view>
-    <view  class='buy-btn'>立即购买</view>
-    <view  class='cart-btn' bindtap='popUp'>加入购物车</view>
+    <view  class='buy-btn' bindtap='popUpBuy'>立即购买</view>
+    <view  class='cart-btn' bindtap='popUpCart'>加入购物车</view>
   </view>
-  <view class="pop-mask {{isShow?'active':''}}" >
+  <view class="pop-mask {{isShowCart?'active':''}}" >
+    <view class='pop-content'>
+      <view class='shop'>
+        <image src='{{detailData.basicInfo.pic}}'></image>
+        <view class='text'>
+          <view class='title'>{{detailData.basicInfo.name}}</view>
+          <view class='price'>￥{{detailData.basicInfo.minPrice}}</view>
+        </view>
+      </view>
+      <view class='color' wx:if="{{detailData.properties}}">
+        <view class='title'>{{detailData.properties[0].name}}</view>
+        <view class='color-list' >
+          <view bindtap='selColor' data-color='{{item.name}}' wx:for="{{detailData.properties[0].childsCurGoods}}" wx:key="{{index}}" class='color-btn'>{{item.name}}</view>
+        </view>
+      </view>
+      <view class='count'>
+        <view class='left'>商品数量</view>
+        <view class='right'>
+          <view bindtap='reduceCount' class='count-plus'>-</view>
+          <view class='count-num'>{{selNum}}</view>
+          <view bindtap='addCount' class='count-reduce'>+</view>
+        </view>
+      </view>
+      <view  class='add-btn'>加入购物车</view>
+      <image bindtap='closePop' src='/images/popup-close.png'></image>
+    </view>
+  </view>
+  <view class="pop-mask {{isShowBuy?'active':''}}" >
     <view class='pop-content'>
       <view class='shop'>
         <image src='{{detailData.basicInfo.pic}}'></image>
@@ -82,13 +109,13 @@
       <view class='count'>
         <view class='left'>商品数量</view>
         <view class='right'>
-          <view class='count-plus'>-</view>
-          <view class='count-num'>1</view>
-          <view class='count-reduce'>+</view>
+          <view bindtap='reduceCount' class='count-plus'>-</view>
+          <view class='count-num'>{{selNum}}</view>
+          <view bindtap='addCount' class='count-reduce'>+</view>
         </view>
       </view>
-      <view class='add-btn' >加入购物车</view>
-      <image class='close' bindtap='closePop' src='/images/popup-close.png'></image>
+      <view class='add-btn'>立即购买</view>
+      <image bindtap='closePop' src='/images/popup-close.png'></image>
     </view>
   </view>
 </view>

@@ -170,7 +170,7 @@ swiper-item image {
     width: 100%;     
     left: 0;
 }
-.container .pop-mask .pop-content image{
+.container .pop-mask .pop-content .shop image{
   width: 120rpx;
   height: 120rpx;
 }
@@ -178,7 +178,7 @@ swiper-item image {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 10rpx;
+  padding: 30rpx;
   border-bottom: 1px solid #ccc;
 }
 .container .pop-mask .pop-content .shop .text{
@@ -210,7 +210,7 @@ swiper-item image {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20rpx 0;
+  padding: 50rpx 20rpx;
   border-top: 1px solid #ccc;
 }
 .container .pop-mask .pop-content  .count .right{
@@ -222,21 +222,23 @@ swiper-item image {
 .pop-content  .count .right .count-num,
 .pop-content  .count .right .count-reduce{
   border: 1px solid #ccc;
-  padding: 5rpx 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
 }
 .pop-content  .count .right .count-num {
   background-color: #f5f5f5;
-  padding: 5rpx 25rpx;
 }
 .pop-content .add-btn{
   text-align: center;
   background-color: deeppink;
-  padding: 20rpx 0;
+  padding: 40rpx 0;
 }
-.pop-content .close{
+.pop-content>image{
   position: absolute;
   right: 20rpx;
   top: 20rpx;
-  width: 9rpx;
-  height: 9rpx;
+  width: 16px;
+  height: 16px;
 }
