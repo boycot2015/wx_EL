@@ -2,6 +2,84 @@
 page,.container{
   height: 100%;
   background-color: #f5f5f5;
+  width: 100%;
+}
+.container .goodslist{
+  width: 100%;
+}
+.container .goods {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 20rpx;  
+  margin: 10rpx 0;
+}
+.container .goods image.check-icon{
+  width: 40rpx;
+  height: 40rpx;
+}
+.container .goods .left image.img{
+  width: 150rpx;
+  height: 150rpx;
+}
+.container .goods .left{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+
+.container .goods .right{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container .goods .right .count-plus,
+.container .goods .right .count-num,
+.container .goods .right .count-reduce{
+  border: 1px solid #ccc;
+  width: 60rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+}
+.container .goods .right .count-num {
+  background-color: #f5f5f5;
+}
+
+
+.container .goods .middle{
+  flex-basis: 40%;
+}
+.container .goods .middle .price{
+  color: red;
+}
+.container .footer-bar{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding-left:20rpx;
+  box-sizing: border-box; 
+  margin: 10rpx 0;
+}
+.container .footer-bar .left{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container .footer-bar .cal-btn{
+  background-color: #E64340;
+  color: #fff;
+  padding: 40rpx 60rpx;
+}
+.container .footer-bar image{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
 }
 .container .nogoods{
   padding-top: 300rpx;

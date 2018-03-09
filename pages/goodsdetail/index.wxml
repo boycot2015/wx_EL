@@ -57,14 +57,15 @@
       <image src='/images/kefu.png'></image>
       <view class='text'>客服</view>
     </view>
-    <view class='shopcart'>
+    <view bindtap='tapCart' class='shopcart' style='position:relative;'>
       <image src='/images/cart.png'></image>
       <view class='text'>购物车</view>
+      <text style='color:red;position:absolute;right:-20rpx;top:0;'>({{totalCount}})</text>
     </view>
     <view  class='buy-btn' bindtap='popUpBuy'>立即购买</view>
     <view  class='cart-btn' bindtap='popUpCart'>加入购物车</view>
   </view>
-  <view class="pop-mask {{isShowCart?'active':''}}" >
+  <view class="pop-mask {{isShowMsk?'active':''}}" >
     <view class='pop-content'>
       <view class='shop'>
         <image src='{{detailData.basicInfo.pic}}'></image>
@@ -76,7 +77,7 @@
       <view class='color' wx:if="{{detailData.properties}}">
         <view class='title'>{{detailData.properties[0].name}}</view>
         <view class='color-list' >
-          <view bindtap='selColor' data-color='{{item.name}}' wx:for="{{detailData.properties[0].childsCurGoods}}" wx:key="{{index}}" class='color-btn'>{{item.name}}</view>
+          <view bindtap='selColor' data-color='{{item.name}}' wx:for="{{detailData.properties[0].childsCurGoods}}" wx:key="{{index}}" class='color-btn {{selColorOrSize==item.name?"active":""}}'>{{item.name}}</view>
         </view>
       </view>
       <view class='count'>
@@ -87,34 +88,8 @@
           <view bindtap='addCount' class='count-reduce'>+</view>
         </view>
       </view>
-      <view  class='add-btn'>加入购物车</view>
-      <image bindtap='closePop' src='/images/popup-close.png'></image>
-    </view>
-  </view>
-  <view class="pop-mask {{isShowBuy?'active':''}}" >
-    <view class='pop-content'>
-      <view class='shop'>
-        <image src='{{detailData.basicInfo.pic}}'></image>
-        <view class='text'>
-          <view class='title'>{{detailData.basicInfo.name}}</view>
-          <view class='price'>￥{{detailData.basicInfo.minPrice}}</view>
-        </view>
-      </view>
-      <view class='color' wx:if="{{detailData.properties}}">
-        <view class='title'>{{detailData.properties[0].name}}</view>
-        <view class='color-list' >
-          <view wx:for="{{detailData.properties[0].childsCurGoods}}" wx:key="{{index}}" class='color-btn'>{{item.name}}</view>
-        </view>
-      </view>
-      <view class='count'>
-        <view class='left'>商品数量</view>
-        <view class='right'>
-          <view bindtap='reduceCount' class='count-plus'>-</view>
-          <view class='count-num'>{{selNum}}</view>
-          <view bindtap='addCount' class='count-reduce'>+</view>
-        </view>
-      </view>
-      <view class='add-btn'>立即购买</view>
+      <view wx:if="{{buyType=='cart'}}" class='add-btn' bindtap='doAddCart'>加入购物车</view>
+      <view wx:else class='add-btn' bindtap='doAddCart'>立即购买</view>
       <image bindtap='closePop' src='/images/popup-close.png'></image>
     </view>
   </view>

@@ -14,31 +14,119 @@ Page({
     autoplay: true,
     interval: 4000,
     duration: 1000,
-    isShowCart: false,
-    isShowBuy:false,
-    selNum:1
+    isShowMsk: false,
+    buyType:'buy',
+    shopCartData:{},
+    selNum:1,
+    totalCount:0
   },
   closePop(){
     this.setData({
-      isShowCart: false,
-      isShowBuy: false,
+      isShowMsk: false,
     })
   },
   popUpCart(){
     this.setData({
-      isShowCart:true
+      isShowMsk:true,
+      buyType: 'cart',
     })
   },
   popUpBuy() {
     this.setData({
-      isShowBuy: true
+      isShowMsk: true,
+       buyType: 'buy'
     })
+  },
+  doAddCart(){
+    let cartData = this.getCartInfo();
+    this.setData({
+      shopCartData: cartData,
+      totalCount: this.data.selNum + this.data.totalCount
+    })
+    wx.setStorage({
+      key: "cartData",
+      data: cartData
+    })
+    wx.setStorage({
+      key: 'totalCount',
+      data: this.data.totalCount,
+    })
+    this.closePop();  
+  },
+  tapCart(){
+    wx.switchTab({
+      url: '/pages/shop-cart/index',
+    })
+  },
+  getCartInfo(){
+    let cartData = {};
+    let shopCartData = this.data.shopCartData;    
+    cartData.name = this.data.detailData.basicInfo.name;
+    cartData.minPrice = this.data.detailData.basicInfo.minPrice;
+    cartData.selNum = this.data.selNum;    
+    cartData.pic = this.data.detailData.basicInfo.pic;    
+    cartData.isSelect = true;    
+    if (this.data.detailData.properties){
+      cartData.type = this.data.detailData.properties[0].name;
+      if (!this.data.selColorOrSize){
+        let colorOrSize = this.data.detailData.properties[0].name == '颜色' ? '颜色' : '尺寸';
+        wx.showModal({
+          title: '提示',
+          content: '请选择' + colorOrSize,
+          showCancel:false
+        })
+        return this.data.shopCartData
+      }
+      cartData.colorOrSize = this.data.selColorOrSize;
+      if (shopCartData instanceof Array) {
+        return  this.toAddDifferData(cartData,shopCartData);
+      } else if (shopCartData.name) {
+      return  this.concatData(cartData,shopCartData,shopCartData.name == cartData.name && shopCartData.colorOrSize == cartData.colorOrSize);
+      } else {  
+        return cartData;
+      }    
+    } else if (shopCartData instanceof Array){
+      return this.toAddDifferData(cartData, shopCartData);
+    } else if (shopCartData.name){
+      return this.concatData(cartData, shopCartData,shopCartData.name == cartData.name);  
+    }else{
+      return cartData
+    }   
+  },
+  concatData(newData,data,limit){
+    if (limit) {
+      data.selNum += newData.selNum
+      return data;
+    } else {
+      let tempData = [data];
+      tempData.push(newData)
+      return tempData;
+    }
+  },
+  toAddDifferData(newData, data){
+    let canAdd = true;
+    data.some((val, index) => {
+      if (newData.colorOrSize) {
+        if (val.name == newData.name && val.colorOrSize == newData.colorOrSize){
+         val.selNum += newData.selNum;
+         canAdd = false;
+       }
+      } else {
+        if (val.name == newData.name) {
+          val.selNum += newData.selNum;
+          canAdd = false;
+        }
+      }
+    })
+    if (canAdd) {
+      data.push(newData)
+    }
+    return data;
   },
   selColor(e){
     this.setData({
-      selColor: e.currentTarget.dataset.color
+      selColorOrSize: e.currentTarget.dataset.color
     })
-    console.log(e.currentTarget.dataset.color);
   },
   addCount(e){
     this.setData({
@@ -61,7 +149,6 @@ Page({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/detail',
       data:{id:e.id},
       success:res=>{
-        console.log(res.data.data)
         this.setData({
           detailData: res.data.data
         })
@@ -105,7 +192,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (e) {
-    this.getData(e)
+    this.getData(e);
+    wx.getStorage({
+      key: 'cartData',
+      success: res=> {
+        this.setData({
+          shopCartData: res.data
+        })
+      },
+    })
+    wx.getStorage({
+      key: 'totalCount',
+      success: res => {
+        this.setData({
+          totalCount: res.data
+        })
+      },
+    })
   },
 
   /**
@@ -126,14 +229,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    
   },
 
   /**
