@@ -26,7 +26,7 @@
           <image bindtap='changeSelectAll' src='{{selectAll?"/images/gou-red.png":"/images/gou.png"}}'></image>
           <view class='text'>全选</view>
         </view>
-        <view class='total-count'>合计：￥{{totalCount}}</view>
+        <view class='total-count'>合计：￥{{totalPrice}}</view>
         <view class='cal-btn'>去结算</view>
       </view>
   </block>
