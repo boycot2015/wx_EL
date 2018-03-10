@@ -38,7 +38,7 @@ Page({
     })
   },
   doAddCart(){
-    if (!this.data.selColorOrSize) {
+    if (!this.data.selColorOrSize && this.data.detailData.properties) {
       let colorOrSize = this.data.detailData.properties[0].name == '颜色' ? '颜色' : '尺寸';
       wx.showModal({
         title: '提示',

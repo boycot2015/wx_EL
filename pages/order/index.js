@@ -6,13 +6,38 @@ Page({
    */
   data: {
     orderTabList: ['待付款', '待发货', '待收货', '待评价', '已完成'],
-    orderList:'',
+    orderList:[],
     currentIndex:0
   },
   changeTab(e){
-    // console.log(e.currentTarget.dataset.index)
     this.setData({
       currentIndex: e.currentTarget.dataset.index
+    })
+    // console.log(this.data.currentIndex)
+    
+  },
+  cancelOrder(e){
+    let index = e.currentTarget.dataset.index;
+    wx.getStorage({
+      key: 'orderData',
+      success: res=> {
+        res.data.map((val,i)=>{
+          if (index==i){
+            res.data.splice(i,1)
+          }
+        })
+        wx.setStorage({
+          key: 'orderData',
+          data: res.data,
+        })
+        wx.setStorage({
+          key: 'SettlementData',
+          data: res.data,
+        })
+        this.setData({
+          orderList:res.data
+        })
+      },
     })
   },
 

@@ -16,7 +16,7 @@ Page({
     selProvinceIndex: 0,
     selCityIndex: 0,
     selDistrictIndex: 0,
-    addrData:{}
+    addrData:[]
   },
   goBack(){
     wx.navigateBack()
@@ -25,7 +25,7 @@ Page({
     wx.chooseAddress({
       success: res=> {
         this.setData({
-          addrData:res,
+          addrData:[res],
           selProvince: res.provinceName,
           selCity: res.cityName,
           selDistrict: res.countyName
@@ -118,7 +118,7 @@ Page({
           })
           wx.setStorage({
             key: 'addrData',
-            data: addrData,
+            data: [addrData],
           })
           wx.navigateBack({
             

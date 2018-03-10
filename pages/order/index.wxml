@@ -6,23 +6,23 @@
       {{item}}
     </view>
   </view>
-  <view class='no-order-list' hidden='{{orderList?true:false}}'>
+  <view  class='no-order-list' wx:if='{{!orderList.length||currentIndex!=0}}'>
     <image src='/images/no-order.png'></image>
     <view>暂无订单</view>
   </view>
-  <view class='order-list' wx:for="{{orderList}}" wx:key="index">
+  <view wx:if="{{currentIndex==0}}" class='order-list' wx:for="{{orderList}}" wx:key="index">
     <view class='top'>
       <text class='time'>下单时间：{{item.time}}</text>
       <text class='right'>待支付</text>
     </view>
     <view class='order-number'>订单编号：{{item.orderNum}}</view>
-    <view class='img' wx:for="{{item.orderData}}" wx:key="index">
-        <image class='imgItem'src='{{item.pic}}'></image>
+    <view class='img' >
+        <image wx:for="{{item.orderData}}" wx:key="index" class='imgItem'src='{{item.pic}}'></image>
     </view>
     <view class='bottom'>
       <view class='totalPrice'>合计：￥ {{item.totalPrice}}</view>
-      <view class='canel-btn'>取消订单</view>
-      <view class='pay-btn'>马上付款</view>
+      <view data-index='{{index}}' bindtap='cancelOrder' class='cancel-btn'>取消订单</view>
+      <view bindtap='pay' class='pay-btn'>马上付款</view>
     </view>
   </view>
 </view>

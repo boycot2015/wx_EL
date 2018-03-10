@@ -19,3 +19,44 @@
   width: 14rpx;
   height: 16rpx;
 }
+
+
+.container .addr-list{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  padding: 20rpx;
+  margin: 20rpx 0;
+  background-color: #fff;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ccc;
+}
+.container .addr-list .text{
+  flex-basis: 80%;
+  margin-left: 20rpx;
+}
+.container .addr-list .text .area{
+  font-size: 14px;
+  color: #666;
+}
+/* .container .addr-list image{
+  width: 60rpx;
+  height: 60rpx;
+} */
+.container .addr-list image.left-icon{
+  width: 40rpx;
+  height: 40rpx;
+}
+.container .addr-list image.line{
+  height: 4rpx;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.container .addr-list image.arr-icon{
+  width: 50rpx;
+  height: 50rpx;
+}

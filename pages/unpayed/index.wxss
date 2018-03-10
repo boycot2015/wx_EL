@@ -2,6 +2,9 @@
 page {
   background-color: #f5f5f5;
 }
+.container{
+  margin-bottom: 140rpx;
+}
 .container .top{
   width: 100%;
   display: flex;
@@ -72,7 +75,7 @@ page {
   align-items: center;
   width: 100%;
   background-color: #fff;
-  padding: 20rpx;
+  padding: 40rpx 20rpx;
   box-sizing: border-box;
   font-size: 16px;
 }
@@ -83,7 +86,7 @@ page {
   flex-basis: 80%;
   background-color: #f5f5f5;
   border-radius: 5rpx;
-  padding-left: 10rpx;
+  padding: 30rpx 10rpx;
 }
 .container .footer{
   background-color: #fff;
@@ -96,10 +99,15 @@ page {
   position: fixed;
   bottom: 0;
   left: 0;
+  z-index: 99;
 }
 .container .footer .submit-btn{
   padding: 40rpx 60rpx; 
   background-color: #E64340;
   color: #fff;
   margin-left: 40rpx;   
+}
+.container .footer .submit-btn.active{
+  background-color: #ccc;
+  color: #fff;
 }

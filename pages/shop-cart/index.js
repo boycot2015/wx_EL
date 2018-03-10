@@ -17,6 +17,19 @@ Page({
     isTouchMove:false
   },
   toUnPayed(){
+    if (!this.data.totalPrice){
+      return;
+    }
+    let SettlementData = [];
+    this.data.goodsList.map(val => {
+      if (val.isSelect) {
+        SettlementData.push(val);
+      }
+    })
+    wx.setStorage({
+      key: 'SettlementData',
+      data: SettlementData,
+    })
     wx.navigateTo({
       url: '/pages/unpayed/index',
     })

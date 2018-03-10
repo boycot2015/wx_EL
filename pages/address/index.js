@@ -4,20 +4,38 @@ Page({
   /**
    * 页面的初始数据
    */
-  addAddr(){
+  
+  data: {
+    addrData:[]
+  },
+  addAddr() {
     wx.navigateTo({
       url: '/pages/addaddr/index',
     })
   },
-  data: {
-  
+  editAddr(){
+    wx.navigateTo({
+      url: '/pages/addaddr/index',
+    })
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    wx.getStorage({
+      key: 'addrData',
+      success: res=> {
+        if(res.data instanceof Array){
+          this.setData({
+            addrData: res.data
+          })
+        } else {
+          this.setData({
+            addrData: [res.data]
+          })
+        }
+      },
+    })
   },
 
   /**

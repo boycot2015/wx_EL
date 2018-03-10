@@ -6,6 +6,7 @@ page,.container{
 }
 .container .goodslist{
   width: 100%;
+  margin-bottom:112rpx; 
 }
 
 
@@ -106,6 +107,10 @@ page,.container{
   padding-left:20rpx;
   box-sizing: border-box; 
   border-bottom: 1px solid #ccc;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
 }
 .container .footer-bar .left{
   display: flex;
