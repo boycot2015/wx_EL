@@ -11,7 +11,8 @@
     "pages/order/index",
     "pages/address/index",
     "pages/addaddr/index",
-    "pages/goodsdetail/index"
+    "pages/goodsdetail/index",
+    "pages/unpayed/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

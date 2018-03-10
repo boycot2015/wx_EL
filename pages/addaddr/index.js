@@ -86,7 +86,7 @@ Page({
       districtId = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].districtList[this.data.selDistrictIndex].id;
     }
     let apiAddWay = "add";    
-    var apiAddid = this.data.id||0;
+    var apiAddid = 0;
     if (apiAddid) {
       apiAddWay = "update";
     } else {
@@ -115,6 +115,13 @@ Page({
             title: '提示',
             content: '网络错误，请稍后重试!',
             showCancel: false
+          })
+          wx.setStorage({
+            key: 'addrData',
+            data: addrData,
+          })
+          wx.navigateBack({
+            
           })
         }
     }

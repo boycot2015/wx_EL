@@ -4,7 +4,7 @@
   background-color: #f5f5f5;
 }
 .container .avatar{
-  background-color: red;
+  background-color: #E64340;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,13 +14,13 @@
   box-sizing: border-box;
 }
 .container .avatar image{
-  width: 25%;
+  width: 150rpx;
   border-radius: 50%;
 }
 .container .avatar .name{
   font-size: 16px;
   color: #fff;
-  line-height: 40px;
+  line-height: 40rpx;
 }
 .container .item{
   background-color: #fff;
@@ -44,6 +44,9 @@
   display: flex;
   width: 100%;
   justify-content: space-around;
+}
+.container .item.count-pocket button{
+  padding: 0rpx 30rpx;
 }
 .container .item button{
     width: 60%;

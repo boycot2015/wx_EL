@@ -1,0 +1,47 @@
+<!--pages/unpayed/index.wxml-->
+<!-- <text>pages/unpayed/index.wxml</text> -->
+<view class='container'>
+  <view wx:if="{{!hasAddr}}" bindtap='getAddr'  class='top'>
+    <image src='/images/ico-add-addr.png'></image>
+    <view class='text'>新增收货地址</view>
+    <image class='arr-icon' src='/images/arrow-right.png'></image>
+    <image class='line' src='/images/addr-line.png'></image>
+  </view>
+  <block wx:else>
+  <view  class='top' bindtap='getAddr'>
+    <image src='/images/ico-addr.png'></image>
+    <view class='text'>
+      <view class='info'>{{addrData.userName}} {{addrData.telNumber}}</view>
+      <view class='area'>{{addrData.detailInfo}}</view>
+    </view>
+    <image class='arr-icon' src='/images/arrow-right.png'></image>
+    <image class='line' src='/images/addr-line.png'></image>
+  </view>
+  </block>  
+  <view class='goods'>
+    <view class='title'>商品列表</view>
+    <view class='listItem' wx:for="{{goodsList}}" wx:key="index">
+      <image src='{{item.pic}}'></image>
+      <view class='middle'>
+        <view class='name'>{{item.name}}</view>
+        <view class='props'>{{item.type}}:{{item.colorOrSize}}</view>
+      </view>
+      <view class='right'>
+        <view class='price'>￥{{item.minPrice}}</view>
+        <view class='selNum'>x{{item.selNum}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='package-serve'>
+    <text>配送方式</text>
+    <text>包邮</text>
+  </view>
+  <view class='tips'>
+    <text>备注</text>
+    <input placeholder='如需要说明请备注'></input>
+  </view>
+  <view class='footer'>
+    <view catchlongtap='total-price'>￥{{totalPrice}}</view>
+    <view bindtap='submitOrder' class='submit-btn'>提交订单</view>
+  </view>
+</view>

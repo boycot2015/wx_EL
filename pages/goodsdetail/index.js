@@ -38,6 +38,15 @@ Page({
     })
   },
   doAddCart(){
+    if (!this.data.selColorOrSize) {
+      let colorOrSize = this.data.detailData.properties[0].name == '颜色' ? '颜色' : '尺寸';
+      wx.showModal({
+        title: '提示',
+        content: '请选择' + colorOrSize,
+        showCancel: false
+      })
+      return;
+    }
     let cartData = this.getCartInfo();
     this.setData({
       shopCartData: cartData,
@@ -65,18 +74,9 @@ Page({
     cartData.minPrice = this.data.detailData.basicInfo.minPrice;
     cartData.selNum = this.data.selNum;    
     cartData.pic = this.data.detailData.basicInfo.pic;    
-    cartData.isSelect = true;    
+    cartData.isSelect = true; 
     if (this.data.detailData.properties){
       cartData.type = this.data.detailData.properties[0].name;
-      if (!this.data.selColorOrSize){
-        let colorOrSize = this.data.detailData.properties[0].name == '颜色' ? '颜色' : '尺寸';
-        wx.showModal({
-          title: '提示',
-          content: '请选择' + colorOrSize,
-          showCancel:false
-        })
-        return this.data.shopCartData
-      }
       cartData.colorOrSize = this.data.selColorOrSize;
       if (shopCartData instanceof Array) {
         return  this.toAddDifferData(cartData,shopCartData);
@@ -125,7 +125,8 @@ Page({
   },
   selColor(e){
     this.setData({
-      selColorOrSize: e.currentTarget.dataset.color
+      selColorOrSize: e.currentTarget.dataset.color,
+      currentIndex: e.currentTarget.dataset.index
     })
   },
   addCount(e){

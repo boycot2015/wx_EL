@@ -74,10 +74,10 @@
           <view class='price'>￥{{detailData.basicInfo.minPrice}}</view>
         </view>
       </view>
-      <view class='color' wx:if="{{detailData.properties}}">
-        <view class='title'>{{detailData.properties[0].name}}</view>
+      <view class='color' wx:if="{{detailData.properties}}" wx:for="{{detailData.properties}}" wx:key="index">
+        <view class='title'>{{item.name}}</view>
         <view class='color-list' >
-          <view bindtap='selColor' data-color='{{item.name}}' wx:for="{{detailData.properties[0].childsCurGoods}}" wx:key="{{index}}" class='color-btn {{selColorOrSize==item.name?"active":""}}'>{{item.name}}</view>
+          <view bindtap='selColor' data-color='{{item.name}}' data-index='{{index}}' wx:for="{{item.childsCurGoods}}" wx:key="{{index}}" class='color-btn {{selColorOrSize==item.name?"active":""}}'>{{item.name}}</view>
         </view>
       </view>
       <view class='count'>
