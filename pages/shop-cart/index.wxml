@@ -4,7 +4,7 @@
       <view class='goodslist'>
         <view class="goods touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtap='toDetail' bindtouchmove="touchmove" data-id="{{item.id}}" wx:for="{{goodsList}}" wx:key="{{index}}">
         <view class='content'>
-            <image class='check-icon' data-index='{{index}}' bindtap='changeSelect' src='{{item.isSelect?"/images/gou-red.png":"/images/gou.png"}}'></image>        
+            <image class='check-icon' data-index='{{index}}' catchtap='changeSelect' src='{{item.isSelect?"/images/gou-red.png":"/images/gou.png"}}'></image>        
           <view class='left'>
             <image class='img' src='{{item.pic}}'></image>
           </view>
@@ -17,9 +17,9 @@
           </view>
           <view class='right'>
             <view class='sumbox'>
-              <view bindtap='reduceCount' data-color='{{item.colorOrSize}}' data-name='{{item.name}}' data-selnum='{{item.selNum}}' class='count-plus'>-</view>
+              <view catchtap='reduceCount' data-color='{{item.colorOrSize}}' data-name='{{item.name}}' data-selnum='{{item.selNum}}' class='count-plus'>-</view>
             <view class='count-num'>{{item.selNum}}</view>
-            <view bindtap='addCount' data-color='{{item.colorOrSize}}' data-name='{{item.name}}' data-selnum='{{item.selNum}}' class='count-reduce'>+</view>
+            <view catchtap='addCount' data-color='{{item.colorOrSize}}' data-name='{{item.name}}' data-selnum='{{item.selNum}}' class='count-reduce'>+</view>
             </view>            
           </view>
         </view>

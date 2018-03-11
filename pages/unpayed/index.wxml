@@ -13,8 +13,8 @@
   <view  class='top' bindtap='getAddr'>
     <image src='/images/ico-addr.png'></image>
     <view class='text'>
-      <view class='info'>{{addrData[0].userName}} {{addrData[0].telNumber}}</view>
-      <view class='area'>{{addrData[0].detailInfo}}</view>
+      <view class='info'>{{addrData.userName}} {{addrData.telNumber}}</view>
+      <view class='area'>{{addrData.detailInfo}}</view>
     </view>
     <image class='arr-icon' src='/images/arrow-right.png'></image>
     <image class='line' src='/images/addr-line.png'></image>
@@ -44,6 +44,6 @@
   </view>
   <view class='footer'>
     <view catchlongtap='total-price'>￥{{totalPrice}}</view>
-    <view bindtap='submitOrder'  class='submit-btn {{!totalPrice?"active":""}}'>提交订单</view>
+    <view bindtap='submitOrder'  class='submit-btn {{!totalPrice||!hasAddr?"active":""}}'>提交订单</view>
   </view>
 </view>

@@ -13,29 +13,48 @@ Page({
       url: '/pages/addaddr/index',
     })
   },
-  editAddr(){
+  editAddr(e){
+    wx.setStorage({
+      key: 'editData',
+      data: '',
+    })
     wx.navigateTo({
       url: '/pages/addaddr/index',
     })
+  },
+  goBack(e){
+    wx.getStorage({
+      key: 'addrData',
+      success: function(res) {
+        res.data.map(val=>{
+          if(e.currentTarget.dataset.id==val.id){
+            val.isSelect = true;
+          }else{
+            val.isSelect = false;
+          }
+        })
+        wx.setStorage({
+          key: 'addrData',
+          data: res.data,
+        })
+      }
+    })
+    wx.navigateTo({
+      url: '/pages/unpayed/index',
+    })
+  },
+  getData(){
+    let addrArr = wx.getStorageSync('addrData');
+    this.setData({
+      addrData: addrArr
+    })
+  
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.getStorage({
-      key: 'addrData',
-      success: res=> {
-        if(res.data instanceof Array){
-          this.setData({
-            addrData: res.data
-          })
-        } else {
-          this.setData({
-            addrData: [res.data]
-          })
-        }
-      },
-    })
+   this.getData();
   },
 
   /**
@@ -49,7 +68,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    // this.getData();
   },
 
   /**

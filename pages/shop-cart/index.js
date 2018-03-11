@@ -60,7 +60,7 @@ Page({
   },
   //单选
   changeSelect(e) {
-    console.log(e.target.dataset)
+    // console.log(e.target.dataset)
     let isSelectAll = true;
     let tempPrice = 0;
     this.data.goodsList.map((val,index) => {
@@ -77,7 +77,7 @@ Page({
         }    
     })
     if (isSelectAll){
-      console.log(isSelectAll)
+      // console.log(isSelectAll)
       this.setData({
         selectAll: true
       })

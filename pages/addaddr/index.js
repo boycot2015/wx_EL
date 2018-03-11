@@ -111,19 +111,36 @@ Page({
     success:res=>{
         console.log(res)
         if(res.data.code!=0){
-          wx.showModal({
-            title: '提示',
-            content: '网络错误，请稍后重试!',
-            showCancel: false
+          // wx.showModal({
+          //   title: '提示',
+          //   content: '网络错误，请稍后重试!',
+          //   showCancel: false
+          // })       
+        }
+        let addrArr = wx.getStorageSync('addrData');
+        if (addrArr){
+          wx.getStorage({
+            key: 'addrData',
+            success: function (res) {
+              addrData.id = res.data.length;
+              res.data.push(addrData);
+              wx.setStorage({
+                key: 'addrData',
+                data: res.data,
+              })
+            }
           })
+        }else{
+          addrData.id = 0;
+          addrData.isSelect = false;
           wx.setStorage({
             key: 'addrData',
-            data: [addrData],
-          })
-          wx.navigateBack({
-            
+            data: [addrData]
           })
         }
+        wx.navigateTo({
+          url: '/pages/address/index',
+        })
     }
   })
   },

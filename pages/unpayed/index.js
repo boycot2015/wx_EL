@@ -6,7 +6,7 @@ Page({
    */
   data: {
     hasAddr:false,
-    addrData:{},
+    addrData:'',
     goodsList:[],
     tips:''
   },
@@ -32,7 +32,7 @@ Page({
   },
 
   submitOrder(e) {
-    if (!this.data.totalPrice){
+    if (!this.data.totalPrice&&!this.data.hasAddr){
       return;
     }
     let time = this.getTime();
@@ -67,7 +67,6 @@ Page({
           totalPrice += val.selNum * val.minPrice
         })
         this.setData({
-          hasAddr: true,
           totalPrice,
           goodsList: res.data
         })
@@ -76,11 +75,32 @@ Page({
     wx.getStorage({
       key: 'addrData',
       success: res => {
-        this.setData({
-          addrData: [res.data]
+        let addrObj = {};
+        res.data.map(val=>{
+          if(val.isSelect){
+            addrObj = val;
+          }
         })
-      },
+        this.setData({
+          hasAddr: true,
+          addrData: addrObj
+        })
+        if (!this.data.hasAddr && !this.data.addrData) {
+          wx.showModal({
+            title: '提示',
+            content: '还没有收货地址，请填写收货地址！',
+            success: res => {
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '/pages/addaddr/index'
+                })
+              }
+            }
+          })
+        }
+      }
     })
+    
   },
   /**
    * 生命周期函数--监听页面加载
@@ -100,7 +120,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getData()
+    // this.getData()
+    
   },
 
   /**

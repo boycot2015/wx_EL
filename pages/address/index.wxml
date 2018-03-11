@@ -1,13 +1,13 @@
 <!--pages/address/index.wxml-->
 <!-- <text>pages/address/index.wxml</text> -->
 <view class='container'>
-  <view wx:if="{{addrData.length}}" bindtap='editAddr' wx:for="{{addrData}}"  class='addr-list' wx:key="{{index}}">
+  <view wx:if="{{addrData.length}}" bindtap='goBack'  wx:for="{{addrData}}"  class='addr-list' data-id='{{item.id}}' wx:key="{{index}}">
     <image class='left-icon' src='/images/addr-active.png'></image>
     <view class='text'>
       <view class='info'>{{item.userName}} {{item.telNumber}}</view>
       <view class='area'>{{item.detailInfo}}</view>
     </view>
-    <image class='arr-icon' src='/images/addr-edit.png'></image>
+    <image catchtap='editAddr' class='arr-icon' src='/images/addr-edit.png'></image>
   </view>
   <view class='bottom' bindtap='addAddr'>
     <image class='add' src='/images/add-addr.png'></image>
