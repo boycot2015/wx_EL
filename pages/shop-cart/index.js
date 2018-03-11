@@ -16,6 +16,13 @@ Page({
     startY: 0,
     isTouchMove:false
   },
+  //点击购物车商品查看商品详情
+  toDetail(e){
+    wx.navigateTo({
+      url: '/pages/goodsdetail/index?id='+e.currentTarget.dataset.id,
+    })
+  },
+  //结算
   toUnPayed(){
     if (!this.data.totalPrice){
       return;
@@ -268,18 +275,19 @@ Page({
       success:res=>{
         if(res.confirm){
           
-          let delPrice = 0;
+          let newTotalPrice = 0;
           let delCount = 0;
-          console.log(this.data.goodsList)
+          // console.log(this.data.goodsList)
           this.data.goodsList.map((val,i)=>{
             if (e.currentTarget.dataset.index==i){
-              delCount = val.selNum;
-              delPrice = val.selNum * val.minPrice;
+              delCount = val.selNum;             
+            }else if(val.isSelect){
+              newTotalPrice += val.selNum * val.minPrice;
             }
           })          
           this.setData({
             totalCount: this.data.totalCount - delCount,
-            totalPrice: this.data.totalPrice - delPrice
+            totalPrice: newTotalPrice
           })     
           this.data.goodsList.splice(e.currentTarget.dataset.index, 1)
           this.setData({

@@ -67,6 +67,29 @@ Page({
       url: '/pages/shop-cart/index',
     })
   },
+  goUnPay(){
+    let SettlementData = [];
+    let buyData = {};
+    buyData.name = this.data.detailData.basicInfo.name;
+    buyData.minPrice = this.data.detailData.basicInfo.minPrice;
+    buyData.selNum = this.data.selNum;
+    buyData.pic = this.data.detailData.basicInfo.pic;
+    if (this.data.detailData.properties){
+      buyData.type = this.data.detailData.properties[0].name;
+    }
+    buyData.id = this.data.detailData.basicInfo.id; 
+    buyData.selColorOrSize = this.data.selColorOrSize;
+
+    SettlementData.push(buyData);
+    wx.setStorage({
+      key: 'SettlementData',
+      data: SettlementData,
+    })
+    this.closePop();
+    wx.navigateTo({
+      url: '/pages/unpayed/index',
+    })
+  },
   getCartInfo(){
     let cartData = {};
     let shopCartData = this.data.shopCartData;    
@@ -74,6 +97,7 @@ Page({
     cartData.minPrice = this.data.detailData.basicInfo.minPrice;
     cartData.selNum = this.data.selNum;    
     cartData.pic = this.data.detailData.basicInfo.pic;    
+    cartData.id = this.data.detailData.basicInfo.id;    
     cartData.isSelect = true; 
     if (this.data.detailData.properties){
       cartData.type = this.data.detailData.properties[0].name;
@@ -150,6 +174,7 @@ Page({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/detail',
       data:{id:e.id},
       success:res=>{
+        // console.log(res.data.data)
         this.setData({
           detailData: res.data.data
         })

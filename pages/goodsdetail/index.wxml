@@ -89,7 +89,7 @@
         </view>
       </view>
       <view wx:if="{{buyType=='cart'}}" class='add-btn' bindtap='doAddCart'>加入购物车</view>
-      <view wx:else class='add-btn' bindtap='doAddCart'>立即购买</view>
+      <view wx:else class='add-btn' bindtap='goUnPay'>立即购买</view>
       <image bindtap='closePop' src='/images/popup-close.png'></image>
     </view>
   </view>
