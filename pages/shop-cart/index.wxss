@@ -117,8 +117,13 @@ page,.container{
   justify-content: space-between;
   align-items: center;
 }
+.container .footer-bar .total-count{
+  color: red;
+  flex-basis: 40%;
+  padding-left: 30rpx;
+}
 .container .footer-bar .cal-btn{
-  background-color: #E64340;
+  background-color: #13A3AB;
   color: #fff;
   padding: 40rpx 60rpx;
 }

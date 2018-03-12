@@ -5,11 +5,11 @@
   <view class='text-area'>
     <view class='item name'>
       <text>联系人</text>
-      <input placeholder='姓名' name='userName' value='{{addrData[0].userName}}'></input>
+      <input placeholder='姓名' name='userName' value='{{addrData.userName}}'></input>
     </view>
     <view class= 'item phone'>
       <text> 手机号码</text>
-      <input placeholder='请输入11位手机号码' name='telNumber' value='{{addrData[0].telNumber}}'></input>
+      <input placeholder='请输入11位手机号码' name='telNumber' value='{{addrData.telNumber}}'></input>
     </view>
     <view class='item erea'>
       <text>选择地区</text>
@@ -31,16 +31,17 @@
     </view>
     <view class='item details'>
       <text>详细地址</text>
-      <input placeholder='详细地址' name='detailInfo' value='{{addrData[0].detailInfo}}'></input>
+      <input placeholder='详细地址' name='detailInfo' value='{{addrData.detailInfo}}'></input>
     </view>
     <view class='item code'>
       <text>邮政编码</text>
-      <input placeholder='邮政编号' name='postalCode' value='{{addrData[0].postalCode}}'></input>
+      <input placeholder='邮政编号' name='postalCode' value='{{addrData.postalCode}}'></input>
     </view>
   </view>
   <view class="btn-area">
-    <button type='warn' formType="submit">保存</button>
-    <button type='primary' bindtap='getAddrFromWx' formType="reset">从微信读取</button>
+    <button type='warn' data-id='{{addrData.id}}' formType="submit">保存</button>
+    <button type='default'wx:if="{{addrData.id>=0}}" data-id='{{addrData.id}}'  bindtap='deletAddr' formType="reset">删除地址</button>
+    <button type='primary' wx:else bindtap='getAddrFromWx' formType="reset">从微信读取</button>
     <button  formType="cancel" bindtap='goBack'>取消</button>
   </view>
 </form>

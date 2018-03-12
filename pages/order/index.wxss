@@ -71,10 +71,10 @@ page{
 .container .order-list .bottom .cancel-btn,
 .container .order-list .bottom .pay-btn{
   padding: 10rpx 20rpx;
-  border: 1px solid orangered;
+  border: 1px solid #13A3AB;
   border-radius: 10rpx;
 }
 .container .order-list .bottom .pay-btn{
-  background-color: orangered;
+  background-color:#13A3AB;
   color: #fff;
 }

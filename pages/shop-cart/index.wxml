@@ -12,7 +12,8 @@
             <view class='goodsname'>
               {{item.name}}
             </view>
-            <view class='color' wx:if="{{item.type}}">{{item.type}}:{{item.colorOrSize}}</view>
+            <view class='color' wx:if="{{item.size}}">{{item.type}}:{{item.size}}</view>
+            <view class='color' wx:if="{{item.color}}">颜色:{{item.color}}</view>
             <view class='price'>￥{{item.minPrice}}</view>
           </view>
           <view class='right'>
@@ -40,7 +41,7 @@
     <view class='nogoods'>
       <image  src='/images/icon-cart.png'></image>
       <view class='cartinfo'>购物车空空如也~</view>
-      <button type='warn' bindtap='turnToHome'>去逛逛</button>
+      <button  style='color:#fff;background-color:#13A3AB' bindtap='turnToHome'>去逛逛</button>
     </view>
   </block>  
 </view>

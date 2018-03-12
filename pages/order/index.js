@@ -24,16 +24,18 @@ Page({
         res.data.map((val,i)=>{
           if (index==i){
             res.data.splice(i,1)
+          }else{
+            wx.setStorage({
+              key: 'SettlementData',
+              data: val.orderData
+            })
           }
         })
         wx.setStorage({
           key: 'orderData',
           data: res.data,
         })
-        wx.setStorage({
-          key: 'SettlementData',
-          data: res.data,
-        })
+        
         this.setData({
           orderList:res.data
         })

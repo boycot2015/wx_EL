@@ -4,12 +4,12 @@
   background-color: #f5f5f5;
 }
 .container .avatar{
-  background-color: #E64340;
+  background-color: #13A3AB;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 20rpx 0;
+  padding: 50rpx 0;
   text-align: center;
   box-sizing: border-box;
 }

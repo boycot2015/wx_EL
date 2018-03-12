@@ -26,7 +26,8 @@
       <image src='{{item.pic}}'></image>
       <view class='middle'>
         <view class='name'>{{item.name}}</view>
-        <view wx:if="{{item.type}}" class='props'>{{item.type}}:{{item.colorOrSize}}</view>
+        <view wx:if="{{item.size}}" class='props'>{{item.type}} : {{item.size}}</view>
+        <view wx:if="{{item.color}}" class='props'>颜色 : {{item.color}}</view>
       </view>
       <view class='right'>
         <view class='price'>￥{{item.minPrice}}</view>
@@ -43,7 +44,7 @@
     <input bindblur='getTips' placeholder='如需要说明请备注' value='{{tips}}'></input>
   </view>
   <view class='footer'>
-    <view catchlongtap='total-price'>￥{{totalPrice}}</view>
+    <view  class='total-price'>总金额：￥{{totalPrice}}</view>
     <view bindtap='submitOrder'  class='submit-btn {{!totalPrice||!hasAddr?"active":""}}'>提交订单</view>
   </view>
 </view>

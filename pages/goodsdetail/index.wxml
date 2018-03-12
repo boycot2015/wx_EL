@@ -1,7 +1,7 @@
 <!--pages/goodsdetail/index.wxml-->
 <!-- <text>pages/goodsdetail/index.wxml</text> -->
 <import src="../../wxParse/wxParse.wxml" />
-<view class='container'>
+<view class='container' wx:if="{{isBack}}">
   <view class='swiper-box' wx:if="{{!detailData.basicInfo.videoId}}">
     <swiper indicator-dots="{{indicatorDots}}"
       autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
@@ -60,7 +60,7 @@
     <view bindtap='tapCart' class='shopcart' style='position:relative;'>
       <image src='/images/cart.png'></image>
       <view class='text'>购物车</view>
-      <text style='color:red;position:absolute;right:-20rpx;top:0;'>({{totalCount}})</text>
+      <text style='color:red;position:absolute;right:-46rpx;top:0;'>({{totalCount}})</text>
     </view>
     <view  class='buy-btn' bindtap='popUpBuy'>立即购买</view>
     <view  class='cart-btn' bindtap='popUpCart'>加入购物车</view>
@@ -74,18 +74,25 @@
           <view class='price'>￥{{detailData.basicInfo.minPrice}}</view>
         </view>
       </view>
-      <view class='color' wx:if="{{detailData.properties}}" wx:for="{{detailData.properties}}" wx:key="index">
-        <view class='title'>{{item.name}}</view>
+
+       <view class='color' wx:if="{{detailData.properties[0]}}">
+        <view class='title'>{{detailData.properties[0].name}}</view>
         <view class='color-list' >
-          <view bindtap='selColor' data-color='{{item.name}}' data-index='{{index}}' wx:for="{{item.childsCurGoods}}" wx:key="{{index}}" class='color-btn {{selColorOrSize==item.name?"active":""}}'>{{item.name}}</view>
+          <view bindtap='selSize' data-type='{{detailData.properties[0].name}}' data-size='{{item.name}}'  wx:for="{{detailData.properties[0].childsCurGoods}}" data-index='{{index}}' wx:key="{{index}}" class='color-btn {{currentSizeIndex==index?"active":""}}'>{{item.name}}</view>
+        </view>
+      </view>
+      <view class='color' wx:if="{{detailData.properties[1]}}">
+        <view class='title'>{{detailData.properties[1].name}}</view>
+        <view class='color-list' >
+          <view bindtap='selColor' data-type='{{detailData.properties[1].name}}' data-color='{{item.name}}'  wx:for="{{detailData.properties[1].childsCurGoods}}" data-index='{{index}}' wx:key="{{index}}" class='color-btn {{currentColorIndex==index?"active":""}}'>{{item.name}}</view>
         </view>
       </view>
       <view class='count'>
         <view class='left'>商品数量</view>
         <view class='right'>
-          <view bindtap='reduceCount' class='count-plus'>-</view>
+          <view bindtap='reduceCount' class='count-plus {{!canReduce?"active":""}}'>-</view>
           <view class='count-num'>{{selNum}}</view>
-          <view bindtap='addCount' class='count-reduce'>+</view>
+          <view bindtap='addCount' class='count-reduce  {{!canAdd?"active":""}}'>+</view>
         </view>
       </view>
       <view wx:if="{{buyType=='cart'}}" class='add-btn' bindtap='doAddCart'>加入购物车</view>

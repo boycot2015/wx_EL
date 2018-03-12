@@ -12,12 +12,16 @@ Page({
     selectCurrent: 0,
     activeCategoryId: 0,
     searchInput:'',
-    goods:[]
+    goods:[],
+    isBack:false
   },
   toGoodsDetail(e){
     wx.navigateTo({
       url: '/pages/goodsdetail/index?id='+e.currentTarget.dataset.id,
     })
+  },
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh()
   },
   onHide(){
     this.setData({
@@ -50,7 +54,7 @@ Page({
     })
   },
   tapBanner(e){
-    console.log(e)
+    console.log(this.data.banners)
     wx.navigateTo({
       url: '/pages/goodsdetail/index?id=' + e.currentTarget.dataset.id,
     })
@@ -73,7 +77,7 @@ Page({
     var that = this;
     
     wx.setNavigationBarTitle({
-      title: wx.getStorageSync('mallName') 
+      title:'EL商城' 
     })
     wx.getSetting({
       success(res) {
@@ -97,6 +101,10 @@ Page({
       })
     })
     */
+    wx.showLoading({
+      title: '加载中......'
+    })
+    wx.startPullDownRefresh()
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/banner/list',
       data: {
@@ -135,6 +143,13 @@ Page({
           activeCategoryId: 0
         });
         that.getGoodsList(0);
+        that.setData({
+          isBack: true
+        })
+
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 100)
       }
     })
     

@@ -18,7 +18,10 @@ Page({
     buyType:'buy',
     shopCartData:{},
     selNum:1,
-    totalCount:0
+    totalCount:0,
+    isBack:false,
+    canReduce: true,
+    canAdd:true
   },
   closePop(){
     this.setData({
@@ -38,15 +41,24 @@ Page({
     })
   },
   doAddCart(){
-    if (!this.data.selColorOrSize && this.data.detailData.properties) {
-      let colorOrSize = this.data.detailData.properties[0].name == '颜色' ? '颜色' : '尺寸';
+    if (!this.data.type1 && this.data.detailData.properties) {
       wx.showModal({
         title: '提示',
-        content: '请选择' + colorOrSize,
+        content: '请选择尺寸!',
         showCancel: false
       })
       return;
     }
+    if (!this.data.type2 && this.data.detailData.properties) {
+      wx.showModal({
+        title: '提示',
+        content: '请选择颜色!',
+        showCancel: false
+      })
+      return;
+    }
+    
+
     let cartData = this.getCartInfo();
     this.setData({
       shopCartData: cartData,
@@ -78,7 +90,8 @@ Page({
       buyData.type = this.data.detailData.properties[0].name;
     }
     buyData.id = this.data.detailData.basicInfo.id; 
-    buyData.selColorOrSize = this.data.selColorOrSize;
+    buyData.color = this.data.selColor;
+    buyData.selSize = this.data.selSize;
 
     SettlementData.push(buyData);
     wx.setStorage({
@@ -101,11 +114,12 @@ Page({
     cartData.isSelect = true; 
     if (this.data.detailData.properties){
       cartData.type = this.data.detailData.properties[0].name;
-      cartData.colorOrSize = this.data.selColorOrSize;
+      cartData.color = this.data.selColor;
+      cartData.size = this.data.selSize;
       if (shopCartData instanceof Array) {
         return  this.toAddDifferData(cartData,shopCartData);
       } else if (shopCartData.name) {
-      return  this.concatData(cartData,shopCartData,shopCartData.name == cartData.name && shopCartData.colorOrSize == cartData.colorOrSize);
+        return this.concatData(cartData, shopCartData, shopCartData.name == cartData.name && shopCartData.color == cartData.color && shopCartData.size == cartData.size);
       } else {  
         return cartData;
       }    
@@ -130,8 +144,8 @@ Page({
   toAddDifferData(newData, data){
     let canAdd = true;
     data.some((val, index) => {
-      if (newData.colorOrSize) {
-        if (val.name == newData.name && val.colorOrSize == newData.colorOrSize){
+      if (newData.color) {
+        if (val.name == newData.name && val.color == newData.color && val.size == newData.size){
          val.selNum += newData.selNum;
          canAdd = false;
        }
@@ -149,25 +163,49 @@ Page({
   },
   selColor(e){
     this.setData({
-      selColorOrSize: e.currentTarget.dataset.color,
-      currentIndex: e.currentTarget.dataset.index
+      selColor: e.currentTarget.dataset.color,
+      type2: e.currentTarget.dataset.type,
+      currentColorIndex: e.currentTarget.dataset.index
+    })
+  },
+  selSize(e) {
+    this.setData({
+      selSize: e.currentTarget.dataset.size,
+      type1: e.currentTarget.dataset.type,
+      currentSizeIndex: e.currentTarget.dataset.index
     })
   },
   addCount(e){
-    this.setData({
-      selNum: ++this.data.selNum
-    })
+    if (this.data.selNum>=10){
+      this.setData({
+        canAdd:false,
+       
+      })
+      return
+    }else{
+      this.setData({
+        canAdd: true,
+        canReduce: true,
+        selNum: ++this.data.selNum
+      })
+    }
+    
   },
   reduceCount() {
     if (this.data.selNum<=1){
       this.setData({
-        selNum: 1
+        selNum: 1,
+        canReduce: false
       })
       return
+    }else{
+      this.setData({
+        canReduce: true,
+        canAdd: true,
+        selNum: --this.data.selNum
+      })
     }
-    this.setData({
-      selNum: --this.data.selNum
-    })
+    
   },
   getData(e){
     wx.request({
@@ -183,6 +221,7 @@ Page({
         }
         WxParse.wxParse('article', 'html', res.data.data.content, this, 5);
         this.getCommit(e.id);
+        
       }
     })
   },
@@ -218,6 +257,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (e) {
+    wx.showLoading({
+      title: '死命加载中......',
+    })
     this.getData(e);
     wx.getStorage({
       key: 'cartData',
@@ -241,7 +283,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    setTimeout(() => {
+      this.setData({
+        isBack: true
+      })
+      wx.hideLoading()
+    }, 100)
   },
 
   /**

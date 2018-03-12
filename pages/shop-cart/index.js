@@ -18,8 +18,9 @@ Page({
   },
   //点击购物车商品查看商品详情
   toDetail(e){
+    console.log(e.currentTarget.dataset)
     wx.navigateTo({
-      url: '/pages/goodsdetail/index?id='+e.currentTarget.dataset.id,
+      url: '/pages/goodsdetail/index?id=' + e.currentTarget.dataset.id,
     })
   },
   //结算

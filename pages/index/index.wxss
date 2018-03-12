@@ -1,4 +1,7 @@
 /**index.wxss**/
+.container{
+  position: relative;
+}
 .serarch-content{
   position: absolute;
   z-index: 99;
@@ -23,6 +26,7 @@
   padding-left: 40px;
   width: 70%;
   float: left;
+  font-size: 32rpx;
   box-sizing: border-box;
 }
 .serarch-content .search-btn{
@@ -32,8 +36,11 @@
   line-height: 40px;
   border: 0;
   outline: none;
-  background-color: skyblue;
-  border-radius: 0%;
+  color: #fff;
+  text-align: center;
+  font-size: 32rpx;
+  border-radius: 0px;
+  background-color: #13A3AB;
 }
 
 
@@ -110,8 +117,8 @@ swiper-item image {
   font-size: 16px;
 }
 .type-item-on{
-  border-bottom: 4rpx solid #e64340;
-  color: #e64340;
+  border-bottom: 4rpx solid #13A3AB;
+  color: #13A3AB;
 }
 
 

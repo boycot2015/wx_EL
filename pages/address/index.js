@@ -6,26 +6,41 @@ Page({
    */
   
   data: {
-    addrData:[]
+    addrData:[],
+    isSelectPage:true
   },
   addAddr() {
-    wx.navigateTo({
-      url: '/pages/addaddr/index',
-    })
+    wx.removeStorage({
+      key: 'editData',
+      success: function(res) {
+        wx.navigateTo({
+          url: '/pages/addaddr/index',
+        })
+      }
+    })  
   },
   editAddr(e){
-    wx.setStorage({
-      key: 'editData',
-      data: '',
-    })
-    wx.navigateTo({
-      url: '/pages/addaddr/index',
+    wx.getStorage({
+      key: 'addrData',
+      success: function(res) {
+        res.data.map((val,i)=>{
+          if(e.currentTarget.dataset.index==i){
+            wx.setStorage({
+              key: 'editData',
+              data: val,
+            })
+          }
+        })
+        wx.navigateTo({
+          url: '/pages/addaddr/index',
+        })
+      }
     })
   },
   goBack(e){
     wx.getStorage({
       key: 'addrData',
-      success: function(res) {
+      success: res=>{
         res.data.map(val=>{
           if(e.currentTarget.dataset.id==val.id){
             val.isSelect = true;
@@ -35,12 +50,18 @@ Page({
         })
         wx.setStorage({
           key: 'addrData',
-          data: res.data,
+          data: res.data
         })
+        this.setData({
+          addrData: res.data
+        })
+        // wx.redirectTo({
+        //   url: '/pages/unpayed/index',
+        // })
+          wx.navigateTo({
+            url: '/pages/unpayed/index',
+          })  
       }
-    })
-    wx.navigateTo({
-      url: '/pages/unpayed/index',
     })
   },
   getData(){
@@ -68,7 +89,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // this.getData();
+    this.getData();
   },
 
   /**

@@ -32,7 +32,7 @@ Page({
   },
 
   submitOrder(e) {
-    if (!this.data.totalPrice&&!this.data.hasAddr){
+    if (!this.data.totalPrice||!this.data.hasAddr){
       return;
     }
     let time = this.getTime();
@@ -48,9 +48,15 @@ Page({
     }
     orderData.push(orderDataObj);
     // console.log(e.currentTarget)
+    let orderArr = wx.getStorageSync('orderData');
+    if (orderArr){
+      orderArr.push(orderDataObj);
+    }else{
+      orderArr = orderData;
+    }
     wx.setStorage({
       key: 'orderData',
-      data: orderData,
+      data: orderArr,
     })
     wx.navigateTo({
       url:'/pages/order/index' 
@@ -72,20 +78,23 @@ Page({
         })
       }
     })
-    wx.getStorage({
-      key: 'addrData',
-      success: res => {
-        let addrObj = {};
-        res.data.map(val=>{
-          if(val.isSelect){
-            addrObj = val;
-          }
-        })
-        this.setData({
-          hasAddr: true,
-          addrData: addrObj
-        })
-        if (!this.data.hasAddr && !this.data.addrData) {
+    let addrArr = wx.getStorageSync('addrData');
+    if(addrArr){
+      let addrObj = {};
+      addrArr.map(val => {
+        if (val.isSelect) {
+          this.setData({
+            hasAddr: true,
+            addrData: val
+          })
+          // console.log(this.data.addrData)          
+        }
+      })     
+    }
+    if(!this.data.hasAddr){
+      wx.removeStorage({
+        key: 'editData',
+        success: function(res) {
           wx.showModal({
             title: '提示',
             content: '还没有收货地址，请填写收货地址！',
@@ -97,16 +106,17 @@ Page({
               }
             }
           })
-        }
-      }
-    })
+        },
+      })
+      
+    }
     
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getData()
+    // this.getData()
   },
 
   /**
@@ -120,7 +130,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // this.getData()
+    this.getData()
     
   },
 

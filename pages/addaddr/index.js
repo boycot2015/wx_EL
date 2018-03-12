@@ -16,7 +16,7 @@ Page({
     selProvinceIndex: 0,
     selCityIndex: 0,
     selDistrictIndex: 0,
-    addrData:[]
+    addrData:''
   },
   goBack(){
     wx.navigateBack()
@@ -24,17 +24,69 @@ Page({
   getAddrFromWx(){
     wx.chooseAddress({
       success: res=> {
+        console.log(res);
         this.setData({
-          addrData:[res],
+          addrData:res,
           selProvince: res.provinceName,
           selCity: res.cityName,
           selDistrict: res.countyName
+        })
+        this.setIndex();
+      }
+    })
+  },
+  deletAddr(e){
+    wx.getStorage({
+      key: 'addrData',
+      success: function(res) {
+        res.data.map((val,i)=>{
+          if(e.currentTarget.dataset.id==val.id){
+            res.data.splice(i,1);
+            wx.setStorage({
+              key: 'addrData',
+              data: res.data
+            })
+          }
+        })
+        wx.showLoading({
+          title: '加载中',
+          success:res=>{
+            wx.navigateBack({})
+            wx.hideLoading()          
+          }
+        })
+      }
+    })
+  },
+  setIndex(){
+    let provinceName = this.data.selProvince, cityName = this.data.selCity,countyName = this.data.selDistrict;
+    commonCityData.cityData.map((val,i)=>{
+      if (val.name == provinceName){
+        this.setData({
+          selProvinceIndex: i
+        })
+        val.cityList.map((val,i)=>{
+          if(val.name == cityName){
+            this.setData({
+              selCityIndex: i
+            })
+            val.districtList.map((val,i)=>{
+              if (val.name == countyName){
+                this.setData({
+                  selDistrictIndex: i
+                })
+              }
+            })
+          }
         })
       }
     })
   },
   saveAddr(e){
     let addrData = e.detail.value;
+    addrData.selProvince = this.data.selProvince;
+    addrData.selCity = this.data.selCity;
+    addrData.selDistrict = this.data.selDistrict;
     if (!addrData.userName){
       wx.showModal({
         title: '提示',
@@ -43,7 +95,8 @@ Page({
       })
       return
     }
-    if (!addrData.telNumber || !/^[1][3,4,5,7,8][0-9]{9}$/.test(addrData.telNumber)){
+    // console.log(/^0\d{2,3}-?\d{7,8}$/.test(addrData.telNumber))
+    if (!addrData.telNumber || !(/^[1][3,4,5,7,8][0-9]{9}$/.test(addrData.telNumber) || /^0\d{2,3}-?\d{7,8}$/.test(addrData.telNumber))){
       wx.showModal({
         title: '提示',
         content: '请填写正确的手机号!',
@@ -76,8 +129,7 @@ Page({
       })
       return
     }
-    
-    
+    this.setIndex();
     let cityId = commonCityData.cityData[this.data.selProvinceIndex].cityList[this.data.selCityIndex].id;
     let districtId = '';
     if (this.data.selDistrict == "请选择" || !this.data.selDistrict || this.data.selDistrict=="直辖区") {
@@ -92,7 +144,7 @@ Page({
     } else {
       apiAddid = 0;
     }
-    console.log(apiAddid);        
+    // console.log(apiAddid);
 
   wx.request({
     url: 'https://api.it120.cc/' + app.globalData.subDomain + '/user/shipping-address/' + apiAddWay,
@@ -109,26 +161,41 @@ Page({
       isDefault: 'true'
     },
     success:res=>{
-        console.log(res)
+        // console.log(res)
         if(res.data.code!=0){
           // wx.showModal({
           //   title: '提示',
           //   content: '网络错误，请稍后重试!',
           //   showCancel: false
           // })       
-        }
+        }  
         let addrArr = wx.getStorageSync('addrData');
         if (addrArr){
-          wx.getStorage({
+          // console.log(addrData);   
+          let editData = wx.getStorageSync('editData');       
+          if (editData){
+            addrData.id = editData.id;
+            addrArr.map((val, i) => {
+                if (addrData.id == val.id) {
+                  addrArr[i] = addrData;
+                  if (editData.isSelect){
+                    addrArr[i].isSelect = true;
+                  }else{
+                    addrArr[i].isSelect = false;                                
+                  }
+              }else{
+                val.isSelect = false;
+              }
+            })
+            // console.log(addrArr);
+          }else{
+            addrData.id = addrArr.length;
+            addrData.isSelect = false;
+            addrArr.push(addrData);
+          }
+          wx.setStorage({
             key: 'addrData',
-            success: function (res) {
-              addrData.id = res.data.length;
-              res.data.push(addrData);
-              wx.setStorage({
-                key: 'addrData',
-                data: res.data,
-              })
-            }
+            data: addrArr
           })
         }else{
           addrData.id = 0;
@@ -138,6 +205,7 @@ Page({
             data: [addrData]
           })
         }
+        console.log(addrArr);
         wx.navigateTo({
           url: '/pages/address/index',
         })
@@ -244,13 +312,25 @@ Page({
         id: 0
       })
     }
+    wx.getStorage({
+      key: 'editData',
+      success: res=> {
+        this.setData({
+          addrData:res.data,
+          selProvince: res.data.selProvince,
+          selCity: res.data.selCity,
+          selDistrict: res.data.selDistrict
+        })
+      }
+    })
+    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
@@ -264,7 +344,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+    wx.removeStorageSync('editData')
   },
 
   /**
