@@ -78,7 +78,7 @@
        <view class='color' wx:if="{{detailData.properties[0]}}">
         <view class='title'>{{detailData.properties[0].name}}</view>
         <view class='color-list' >
-          <view bindtap='selSize' data-type='{{detailData.properties[0].name}}' data-size='{{item.name}}'  wx:for="{{detailData.properties[0].childsCurGoods}}" data-index='{{index}}' wx:key="{{index}}" class='color-btn {{currentSizeIndex==index?"active":""}}'>{{item.name}}</view>
+          <view bindtap='selSize' data-size='{{item.name}}'  wx:for="{{detailData.properties[0].childsCurGoods}}" data-index='{{index}}' wx:key="{{index}}" class='color-btn {{currentSizeIndex==index?"active":""}}'>{{item.name}}</view>
         </view>
       </view>
       <view class='color' wx:if="{{detailData.properties[1]}}">

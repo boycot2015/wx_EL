@@ -12,8 +12,8 @@
             <view class='goodsname'>
               {{item.name}}
             </view>
-            <view class='color' wx:if="{{item.size}}">{{item.type}}:{{item.size}}</view>
-            <view class='color' wx:if="{{item.color}}">颜色:{{item.color}}</view>
+            <view class='color' wx:if="{{item.size}}">尺寸 : {{item.size}}</view>
+            <view class='color' wx:if="{{item.color}}">颜色 : {{item.color}}</view>
             <view class='price'>￥{{item.minPrice}}</view>
           </view>
           <view class='right'>

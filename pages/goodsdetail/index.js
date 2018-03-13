@@ -40,25 +40,61 @@ Page({
        buyType: 'buy'
     })
   },
-  doAddCart(){
-    if (!this.data.type1 && this.data.detailData.properties) {
-      wx.showModal({
-        title: '提示',
-        content: '请选择尺寸!',
-        showCancel: false
+  checkData(e){
+    let canSubmit = false;    
+    let props = [];    
+    if (this.data.detailData.properties && this.data.detailData.properties.length==1) {
+      this.data.detailData.properties[0].childsCurGoods.map((v, i) => {
+        if (v.active) {
+          canSubmit = true
+        }
       })
-      return;
-    }
-    if (!this.data.type2 && this.data.detailData.properties) {
-      wx.showModal({
-        title: '提示',
-        content: '请选择颜色!',
-        showCancel: false
+      props = this.data.detailData.properties[0].name;
+      if (!canSubmit) {
+        wx.showModal({
+          title: '提示',
+          content: '请选择' + props,
+          showCancel: false
+        })
+        return false;
+      } 
+      return true 
+    } else if (this.data.detailData.properties && this.data.detailData.properties.length == 2){
+      let activeCount = 0;
+      this.data.detailData.properties.map(val=>{
+        props.push(val.name);
+        val.childsCurGoods.map((v, i) => {
+          if (v.active) {
+            canSubmit = true;             
+            activeCount++;  
+          }
+        })
       })
-      return;
+      console.log(activeCount)
+      if (!canSubmit || activeCount<2) {
+        let prop = props;
+        if (activeCount==1){
+          prop = props[1]
+        }else{
+          prop = props[0]
+        }
+        wx.showModal({
+          title: '提示',
+          content: '请选择' + prop,
+          showCancel: false
+        })
+        return false;
+      }
+      return true
+    }else{
+      return true
     }
     
-
+  },
+  doAddCart(e){
+    if(!this.checkData(e)){
+      return
+    }
     let cartData = this.getCartInfo();
     this.setData({
       shopCartData: cartData,
@@ -86,13 +122,12 @@ Page({
     buyData.minPrice = this.data.detailData.basicInfo.minPrice;
     buyData.selNum = this.data.selNum;
     buyData.pic = this.data.detailData.basicInfo.pic;
-    if (this.data.detailData.properties){
-      buyData.type = this.data.detailData.properties[0].name;
-    }
     buyData.id = this.data.detailData.basicInfo.id; 
     buyData.color = this.data.selColor;
     buyData.selSize = this.data.selSize;
-
+    if (!this.checkData()) {
+      return
+    }
     SettlementData.push(buyData);
     wx.setStorage({
       key: 'SettlementData',
@@ -113,7 +148,6 @@ Page({
     cartData.id = this.data.detailData.basicInfo.id;    
     cartData.isSelect = true; 
     if (this.data.detailData.properties){
-      cartData.type = this.data.detailData.properties[0].name;
       cartData.color = this.data.selColor;
       cartData.size = this.data.selSize;
       if (shopCartData instanceof Array) {
@@ -162,16 +196,35 @@ Page({
     return data;
   },
   selColor(e){
+      this.data.detailData.properties[0].childsCurGoods.map((v, i) => {
+        if(e.currentTarget.dataset.index ==i){
+          v.active = true
+        }
+      })
     this.setData({
-      selColor: e.currentTarget.dataset.color,
-      type2: e.currentTarget.dataset.type,
+      selColor:e.currentTarget.dataset.color,
+      detailData: this.data.detailData,
       currentColorIndex: e.currentTarget.dataset.index
     })
   },
   selSize(e) {
+    if (this.data.detailData.properties.length==2){
+      this.data.detailData.properties[0].childsCurGoods.map((v, i) => {
+        if (e.currentTarget.dataset.index == i) {
+          v.active = true
+        }
+      })
+    }else{
+      this.data.detailData.properties[0].childsCurGoods.map((v, i) => {
+        if (e.currentTarget.dataset.index == i) {
+          v.active = true
+        }
+      })
+    }
+      
     this.setData({
       selSize: e.currentTarget.dataset.size,
-      type1: e.currentTarget.dataset.type,
+      detailData: this.data.detailData,
       currentSizeIndex: e.currentTarget.dataset.index
     })
   },
@@ -213,6 +266,13 @@ Page({
       data:{id:e.id},
       success:res=>{
         // console.log(res.data.data)
+        if (res.data.data.properties){
+          res.data.data.properties.map(val => {
+            val.childsCurGoods.map((v, i) => {
+              v.active = false
+            })
+          })
+        }
         this.setData({
           detailData: res.data.data
         })
