@@ -70,7 +70,7 @@ Page({
           }
         })
       })
-      console.log(activeCount)
+      // console.log(activeCount)
       if (!canSubmit || activeCount<2) {
         let prop = props;
         if (activeCount==1){

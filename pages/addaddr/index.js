@@ -24,7 +24,7 @@ Page({
   getAddrFromWx(){
     wx.chooseAddress({
       success: res=> {
-        console.log(res);
+        // console.log(res);
         this.setData({
           addrData:res,
           selProvince: res.provinceName,
@@ -205,7 +205,7 @@ Page({
             data: [addrData]
           })
         }
-        console.log(addrArr);
+        // console.log(addrArr);
         wx.navigateTo({
           url: '/pages/address/index',
         })
