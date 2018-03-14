@@ -140,6 +140,7 @@ swiper-item image {
 }
 .goods-list .list-item image{
    width: 100%; 
+   height: 210px;
 }
 .goods-list .list-item .bottom{
   display: flex;

@@ -7,17 +7,19 @@ page .container{
   margin-bottom: 120rpx;
 }
 swiper{
-   height: 480px; 
+  height: 100%;
+   
 }
 swiper-item image {
    width: 100%; 
-  height: 100%;
   display: inline-block;
   overflow: hidden;
+  height: 700.5rpx;
 }
 .swiper-box{
-  height: 100%;
   width: 100%;
+  height: 700.5rpx; 
+  position: relative;
 }
 .video-box,.video-box video{
   width: 100%;

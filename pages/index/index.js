@@ -11,21 +11,22 @@ Page({
     swiperCurrent: 0,
     selectCurrent: 0,
     activeCategoryId: 0,
-    searchInput:'',
-    goods:[],
-    isBack:false
+    searchInput: '',
+    goods: [],
+    isBack: false,
+    searchValue:''
   },
-  toGoodsDetail(e){
+  toGoodsDetail(e) {
     wx.navigateTo({
-      url: '/pages/goodsdetail/index?id='+e.currentTarget.dataset.id,
+      url: '/pages/goodsdetail/index?id=' + e.currentTarget.dataset.id,
     })
   },
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
   },
-  onHide(){
+  onHide() {
     this.setData({
-      autoplay:false
+      autoplay: false
     })
   },
   onShareAppMessage: function (res) {
@@ -53,13 +54,13 @@ Page({
       swiperCurrent: e.detail.current
     })
   },
-  tapBanner(e){
+  tapBanner(e) {
     console.log(this.data.banners)
     wx.navigateTo({
       url: '/pages/goodsdetail/index?id=' + e.currentTarget.dataset.id,
     })
   },
-  tabClick(e){
+  tabClick(e) {
     this.setData({
       activeCategoryId: e.currentTarget.id
     });
@@ -68,17 +69,27 @@ Page({
     //   searchInput:e.
     // })
   },
-  onShow(){
+  onShow() {
     this.setData({
       autoplay: true
     })
   },
   onLoad: function () {
     var that = this;
-    
+
     wx.setNavigationBarTitle({
-      title:'EL商城' 
+      title: 'EL商城'
     })
+    // wx.login({
+    //   success: function (res) {
+    //     if (res.code) {
+    //       // 发起网络请求  
+    //       console.log(res.code)
+    //     } else {
+    //       console.log('获取用户登录态失败！' + res.errMsg)
+    //     }
+    //   }
+    // })
     wx.getSetting({
       success(res) {
         if (!res.authSetting['scope.record']) {
@@ -111,7 +122,7 @@ Page({
         key: 'mallName'
       },
       success: function (res) {
-        
+
         if (res.data.code == 404) {
           wx.showModal({
             title: '提示',
@@ -131,7 +142,7 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/category/all',
       success: function (res) {
-        
+
         var categories = [{ id: 0, name: "全部" }];
         if (res.data.code == 0) {
           for (var i = 0; i < res.data.data.length; i++) {
@@ -152,7 +163,7 @@ Page({
         }, 100)
       }
     })
-    
+
   },
   getGoodsList: function (categoryId) {
     if (categoryId == 0) {
@@ -164,7 +175,7 @@ Page({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/shop/goods/list',
       data: {
         categoryId: categoryId,
-        // nameLike: that.data.searchInput
+        nameLike: that.data.searchValue
       },
       success: function (res) {
         // console.log(res);
@@ -187,5 +198,13 @@ Page({
         });
       }
     })
+  },
+  getInputValue(e){
+    this.setData({
+      searchValue:e.detail.value
+    })
+  },
+  doSearch(){
+    this.getGoodsList(this.data.activeCategoryId)
   }
 })
