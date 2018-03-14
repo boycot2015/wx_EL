@@ -2,7 +2,7 @@
  <view class="container" wx:if="{{isBack}}">
   <view class="serarch-content">
       <image src="/images/search-pic.png" class="search-icon" />
-      <input placeholder="请输入搜索内容" class="search-input" maxlength="30" confirm-type="搜索" bindinput='getInputValue' bindconfirm='toSearch'>
+      <input placeholder="请输入搜索内容" class="search-input" maxlength="30" confirm-type="搜索" bindinput='getInputValue'>
       </input>
       <view class='search-btn' bindtap="doSearch">搜索
       </view>
